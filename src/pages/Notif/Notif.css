@@ -1,0 +1,32 @@
+.retour
+{
+    position:absolute;
+    left:5%;
+}
+.title1{
+    text-align: center;
+}
+.sn{
+    left:5%;
+    width:10%;
+    height: 50%;
+}
+.sn1{
+    margin-left:10%;
+    font-weight: bold;
+}
+.date{
+    font-weight: 1;
+}
+.x
+{
+    right:-5%;
+    position: absolute;
+    bottom:40%;
+    width:40%;
+    height:40%;
+}
+.wrap
+{
+white-space:normal;
+}

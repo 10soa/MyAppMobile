@@ -1,8 +1,8 @@
 import { IonContent,IonRippleEffect,IonInput,IonTabs,IonTabButton,IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton, IonTabBar, IonRouterLink  } from '@ionic/react';
 import { IonFooter,IonFab, IonFabButton, IonFabList } from '@ionic/react';
-import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
+import { add,logOutSharp, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 import './acceuil.css';
-import { pin,triangle, wifi, wine, warning, walk,notificationsOutline,addCircleOutline} from 'ionicons/icons';
+import { arrowBackSharp,homeSharp,pin,triangle, wifi, wine, warning, walk,notificationsSharp,addCircleOutline} from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
 
 
@@ -27,7 +27,7 @@ export const acceuil: React.FC = () => {
       
       <IonHeader>
       <IonToolbar>
-          <IonTitle><h1 className='title'>Accueil <IonIcon className='not' icon={notificationsOutline} /></h1 >
+          <IonTitle><h1 className='title'>Accueil <IonIcon className='not' icon={notificationsSharp} /></h1 >
 
            </IonTitle>
       </IonToolbar>
@@ -36,16 +36,22 @@ export const acceuil: React.FC = () => {
         
       
         {lis}
-        <IonFab vertical="bottom" horizontal="start" slot="fixed">
+        <IonFab vertical="top" horizontal="start" slot="fixed">
          <IonRouterLink href="#"><IonFabButton>
             <IonIcon icon={add}/>
           </IonFabButton> </IonRouterLink> 
-  </IonFab>
+      </IonFab>
       </IonContent>
      
       <IonTabBar slot="top">
+      <IonTabButton>
+            <IonIcon icon={logOutSharp} />
+          </IonTabButton>
           <IonTabButton>
-              <IonIcon icon={wifi} />
+            <IonIcon icon={homeSharp} /> Accueil
+          </IonTabButton>
+          <IonTabButton>
+            <IonIcon icon={logOutSharp} /> Se deconnecter
           </IonTabButton>
       </IonTabBar>
       
