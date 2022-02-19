@@ -1,0 +1,52 @@
+ion-card {
+    height: 93%;
+    margin-top: 10%;
+  }
+ion-button{
+    width: 60%;
+}
+
+ion-card-header,ion-card-content,ion-card{
+  background-color:rgb(255, 255, 255);
+}
+
+.input{
+  font-style: oblique;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.boton{
+  padding: 10px 0;
+  color: #444;
+  font-size: 20px;
+  font-style: italic;
+  z-index: 1;
+  min-width: 10%;
+  margin-left: 60px;
+  color: beige;
+  border-radius: 60%;
+  transition-duration: 0.4s;
+}
+
+.logo{
+  width:40%;
+  height: 40%;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  
+}
+.input :placeholder{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.input,.boton
+{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
