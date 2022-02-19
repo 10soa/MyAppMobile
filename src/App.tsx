@@ -16,7 +16,6 @@ import Tab5 from './pages/Inscription/inscription';
 import Tab6 from './pages/Acceuil/acceuil';
 import Tab7 from './pages/Notif/Notif';
 
-
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -47,6 +46,7 @@ const App: React.FC = () => (
           <Route path="/login">
             <Tab4 />
           </Route>
+         
           <Route path="/notif">
             <Tab7 />
           </Route>

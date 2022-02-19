@@ -21,7 +21,7 @@ export const Notif: React.FC = () => {
     <IonPage>
       <IonHeader>
       <IonToolbar>
-          <IonTitle><h1>Notifications </h1>
+          <IonTitle><h1 className='title'>Notifications </h1>
           <IonIcon icon="notifications-outline"/></IonTitle>
       </IonToolbar>
       </IonHeader>
