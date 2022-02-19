@@ -2,7 +2,7 @@ import { IonContent,IonRippleEffect,IonInput,IonTabs,IonTabButton,IonHeader, Ion
 import { IonFooter,IonFab, IonFabButton, IonFabList } from '@ionic/react';
 import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 import './acceuil.css';
-import { pin,triangle, wifi, wine, warning, walk } from 'ionicons/icons';
+import { pin,triangle, wifi, wine, warning, walk,notificationsOutline,addCircleOutline} from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
 
 
@@ -13,9 +13,10 @@ const lis=num.map((n)=>
     <img  className='s' src="assets/icon/s.png"></img>
   </IonCardHeader>
     <IonCardContent className='s1'>
-      <h4>Type de Signalement</h4>
-      <p >Date</p>
-      <IonRouterLink  href="/fiche">plus de details</IonRouterLink>
+      <h4 className='s2'>Type de Signalement</h4>
+     <p>12/12/2021</p>
+      <IonRouterLink  href="#">plus de details</IonRouterLink>
+
     </IonCardContent>
   </IonCard>
   );
@@ -23,17 +24,23 @@ const lis=num.map((n)=>
 export const acceuil: React.FC = () => {
   return (
     <IonPage>
+      
       <IonHeader>
       <IonToolbar>
-          <IonTitle><h1>Accueil </h1>
-          <IonIcon icon="notifications-outline"/></IonTitle>
+          <IonTitle><h1 className='title'>Accueil <IonIcon className='not' icon={notificationsOutline} /></h1 >
+
+           </IonTitle>
       </IonToolbar>
       </IonHeader>
       <IonContent>
         
       
         {lis}
-        
+        <IonFab vertical="bottom" horizontal="start" slot="fixed">
+         <IonRouterLink href="#"><IonFabButton>
+            <IonIcon icon={add}/>
+          </IonFabButton> </IonRouterLink> 
+  </IonFab>
       </IonContent>
      
       <IonTabBar slot="top">
