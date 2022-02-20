@@ -5,7 +5,6 @@ import './Notif.css';
 import { closeCircleSharp,pin,triangle,logOutSharp,homeSharp,arrowBackSharp, wifi, wine, warning, walk } from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
 
-
 const num=[1,2,3,4,5];
 const lis=num.map((n)=>
     <IonItemSliding>

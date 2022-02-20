@@ -15,7 +15,7 @@ const lis=num.map((n)=>
     <IonCardContent className='s1'>
       <h4 className='s2'>Type de Signalement</h4>
      <p>12/12/2021</p>
-      <IonRouterLink  href="#">plus de details</IonRouterLink>
+      <IonRouterLink  href="/fiche">plus de details</IonRouterLink>
 
     </IonCardContent>
   </IonCard>
@@ -37,7 +37,7 @@ export const acceuil: React.FC = () => {
       
         {lis}
         <IonFab vertical="top" horizontal="start" slot="fixed">
-         <IonRouterLink href="#"><IonFabButton>
+         <IonRouterLink href="insertion"><IonFabButton>
             <IonIcon icon={add}/>
           </IonFabButton> </IonRouterLink> 
       </IonFab>
