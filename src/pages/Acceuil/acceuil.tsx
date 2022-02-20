@@ -4,7 +4,7 @@ import { add,logOutSharp, settings, share, person, arrowForwardCircle, arrowBack
 import './acceuil.css';
 import { arrowBackSharp,homeSharp,pin,triangle, wifi, wine, warning, walk,notificationsSharp,addCircleOutline} from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
-
+import axios from 'axios';
 
 const num=[1,2,3,4,5];
 const lis=num.map((n)=>
@@ -20,6 +20,14 @@ const lis=num.map((n)=>
     </IonCardContent>
   </IonCard>
   );
+const api=axios.create({
+  baseURL:`http://localhost:2004`,
+
+});
+api.get("/signalementUtilisateurEnCours/test/1").then((res)=>{
+  console.log(res);
+})
+
 
 export const acceuil: React.FC = () => {
   return (
@@ -36,6 +44,7 @@ export const acceuil: React.FC = () => {
         
       
         {lis}
+        {api}
         <IonFab vertical="top" horizontal="start" slot="fixed">
          <IonRouterLink href="#"><IonFabButton>
             <IonIcon icon={add}/>
@@ -54,7 +63,7 @@ export const acceuil: React.FC = () => {
             <IonIcon icon={logOutSharp} /> Se deconnecter
           </IonTabButton>
       </IonTabBar>
-      
+     
       
         
     </IonPage>
