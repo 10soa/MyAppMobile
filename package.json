@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@awesome-cordova-plugins/barcode-scanner": "^5.39.1",
+    "@awesome-cordova-plugins/core": "^5.39.1",
+    "@capacitor/core": "3.4.1",
     "@ionic-native/camera": "^5.36.0",
     "@ionic/react": "^6.0.8",
     "@ionic/react-router": "^6.0.0",
@@ -17,6 +20,7 @@
     "@types/react-router-dom": "^5.1.7",
     "ionicons": "^5.4.0",
     "modules": "^0.4.0",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
@@ -61,5 +65,8 @@
       "last 1 safari version"
     ]
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "devDependencies": {
+    "@capacitor/cli": "3.4.1"
+  }
 }

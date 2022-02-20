@@ -16,6 +16,7 @@ import Tab5 from './pages/Inscription/inscription';
 import Tab6 from './pages/Acceuil/acceuil';
 import Tab7 from './pages/Notif/Notif';
 import Tab8 from './pages/Fiche/fiche';
+import Tab9 from './pages/Insertion/insertion';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -53,6 +54,9 @@ const App: React.FC = () => (
           </Route>
           <Route path="/fiche">
             <Tab8 />
+          </Route>
+          <Route path="/insertion">
+            <Tab9 />
           </Route>
           <Route path="/inscription">
             <Tab5 />
