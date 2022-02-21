@@ -5,6 +5,7 @@
   "dependencies": {
     "@awesome-cordova-plugins/barcode-scanner": "^5.39.1",
     "@awesome-cordova-plugins/core": "^5.39.1",
+    "@capacitor/android": "3.4.1",
     "@capacitor/app": "1.1.0",
     "@capacitor/camera": "^1.3.0",
     "@capacitor/core": "3.4.1",
