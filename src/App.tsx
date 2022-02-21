@@ -48,6 +48,9 @@ const App: React.FC = () => (
           <Route path="/login">
             <Tab4 />
           </Route>
+          <Route path="/test">
+            <Tab9 />
+          </Route>
          
           <Route path="/notif">
             <Tab7 />
