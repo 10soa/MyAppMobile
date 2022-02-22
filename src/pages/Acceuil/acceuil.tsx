@@ -26,23 +26,27 @@ const lis=num.map((n)=>
 
 export const Acceuil: React.FC = () => {
   const[sigs,setSigs]=useState([]);
- 
-useEffect(()=>
+  const[count,setCount]=useState(true);
+/*useEffect(()=>
 {
- fetch(`http://localhost:2004/signalementUtilisateur/test/1`).then((res)=>{
-    if(res.ok)
-    {
-       return res.json();
-    }
-   throw res;
-  })
-  .then((data)=>{
-      setSigs(data);
-      console.log(sigs);
- });
+  if(count==true)
+  {
+    fetch(`http://localhost:2004/signalementUtilisateurEnCours/test`).then((res)=>{
+        if(res.ok)
+        {
+          return res.json();
+        }
+      throw res;
+      })
+      .then((data)=>{
+          setSigs(data.lise_Signalement);
+          console.log(sigs);
+          setCount(false);
+    });
+  }
 });
  console.log(sigs);
- const list=sigs.map((ni:{reg: any,commentaire:any,id:any,dateS:any,x:any,y:any,nom:any,mail:any})=>
+ const list=sigs.map((ni:{ type:any,reg: any,commentaire:any,id:any,dateS:any,x:any,y:any,nom:any,mail:any})=>
    <IonCard className="acCard">
    <IonCardHeader>
      <img  className='s' src="assets/icon/s.png"></img>
@@ -54,7 +58,7 @@ useEffect(()=>
  
      </IonCardContent>
    </IonCard>
-   );
+   );*/
   return (
     <IonPage>
       
@@ -68,7 +72,7 @@ useEffect(()=>
       <IonContent>
         
       
-            {list}
+            {lis}
         
         <IonFab vertical="top" horizontal="start" slot="fixed">
          <IonRouterLink href="insertion"><IonFabButton>
