@@ -23,9 +23,9 @@ const Insertion: React.FC = () => {
   const [gender, setGender] = useState<string>();
 
 return (
-  
+  //
   <IonPage>
-  <IonHeader>
+  <IonHeader>pwa-Elemets/
     <IonToolbar>
       <IonTitle>Choisissez des photos</IonTitle>
     </IonToolbar>
