@@ -27,7 +27,7 @@ const lis=num.map((n)=>
 export const Acceuil: React.FC = () => {
   const[sigs,setSigs]=useState([]);
   const[count,setCount]=useState(true);
-/*useEffect(()=>
+useEffect(()=>
 {
   if(count==true)
   {
@@ -58,7 +58,7 @@ export const Acceuil: React.FC = () => {
  
      </IonCardContent>
    </IonCard>
-   );*/
+   );
   return (
     <IonPage>
       
@@ -72,7 +72,7 @@ export const Acceuil: React.FC = () => {
       <IonContent>
         
       
-            {lis}
+          {list}
         
         <IonFab vertical="top" horizontal="start" slot="fixed">
          <IonRouterLink href="insertion"><IonFabButton>
