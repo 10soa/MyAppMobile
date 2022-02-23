@@ -1,7 +1,37 @@
 import { IonContent,IonImg,IonRippleEffect,IonInput,IonTabs,IonTabButton,IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton  } from '@ionic/react';
 import './inscription.css';
-const inscription: React.FC = () => {
-  
+import {useHistory} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+const Inscription: React.FC = () => {
+  const [mail,setMail]=useState("");
+const [mdp,setMdp]=useState("");
+const [nom,setNom]=useState("");
+const [mess,setMess]=useState("");
+const history=useHistory();
+const login=()=> {
+  const url="http://localhost:2004/utilisateurs/"+nom+"/"+mdp+"/"+mail;
+  const options={
+    method:'POST'
+  };
+  fetch(url,options).then((res)=>{
+    if(res.ok)
+    {
+       return res.json();
+    }
+   throw res;
+  })
+  .then((data)=>{
+     if(data.valide==0)
+     {
+       history.push("/login");
+     }
+     else if(data.valide!=0)
+     {
+          alert(data.erreur);
+     }
+ });
+   
+};
     return (
         <IonPage>
         <IonHeader>
@@ -13,31 +43,31 @@ const inscription: React.FC = () => {
           <IonCard>
            
   
-            <form action="/acceuil" method='Get'>
+            
             <IonCardContent>
             <IonImg className='logo' src="assets/icon/téléchargement.png"/>
             <IonItem>
-              <IonInput type="text" name="nom" placeholder="Saisissez votre nom"> </IonInput>
+              <IonInput type="text" name="nom" value={nom} onIonChange={(e) =>setNom(e.detail.value!)} placeholder="Saisissez votre nom"> </IonInput>
             </IonItem>
             <br></br>
             <IonItem>
-              <IonInput type="password" name="mdp" placeholder="Saisissez votre mot de passe"> </IonInput>
+              <IonInput type="password" name="mdp" value={mdp} onIonChange={(e) =>setMdp(e.detail.value!)} placeholder="Saisissez votre mot de passe"> </IonInput>
             </IonItem>
             <br></br>
             <IonItem>
-              <IonInput type="text" name="mail" placeholder="Saisissez votre e-mail"> </IonInput>
+              <IonInput type="text" name="mail" value={mail} onIonChange={(e) =>setMail(e.detail.value!)} placeholder="Saisissez votre e-mail"> </IonInput>
             </IonItem>
             </IonCardContent>
   
             <br></br>
-            <IonButton className="boton" type="submit" size="large" >S'inscrire</IonButton>
+            <IonButton onClick={login} className="boton" type="submit" size="large" >S'inscrire</IonButton>
             <br></br>
             <p></p>
-            </form>
+            
         </IonCard>
         </IonContent>
       </IonPage>
     );
   };
   
-  export default inscription;
+  export default Inscription;

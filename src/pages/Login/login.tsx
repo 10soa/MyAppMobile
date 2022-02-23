@@ -35,6 +35,9 @@ const login=()=> {
  });
    
 };
+const inscri=()=> {
+  history.push("/Inscription");
+};
   return (
     <IonPage>
       <IonHeader>
@@ -63,7 +66,7 @@ const login=()=> {
           <br></br>
           <p></p>
 
-          <IonButton className="boton" href="/inscription" color="success" size="large">Inscription</IonButton>
+          <IonButton className="boton" onClick={inscri} color="success" size="large">Inscription</IonButton>
          <p>{mail}</p>
         </IonCard>
         
