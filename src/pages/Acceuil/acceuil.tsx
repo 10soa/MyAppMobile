@@ -6,59 +6,133 @@ import { arrowBackSharp,homeSharp,pin,triangle, wifi, wine, warning, walk,notifi
 import inscription from '../Inscription/inscription';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
-const num=[1,2,3,4,5];
-const lis=num.map((n)=>
-  <IonCard className="acCard">
-  <IonCardHeader>
-    <img  className='s' src="assets/icon/s.png"></img>
-  </IonCardHeader>
-    <IonCardContent className='s1'>
-      <h4 className='s2'>Type de Signalement</h4>
-     <p>12/12/2021</p>
-      <IonRouterLink  href="/fiche">plus de details</IonRouterLink>
 
-    </IonCardContent>
-  </IonCard>
-  );
   
    
 
 export const Acceuil: React.FC = () => {
-  const[sigs,setSigs]=useState([]);
+  const[listeC,setListeC]=useState([]);
+  const[listeNV,setListeNV]=useState([]);
+  const[listeT,setListeT]=useState([]);
   const[count,setCount]=useState(true);
-/*useEffect(()=>
-{
-  if(count==true)
-  {
-    fetch(`http://localhost:2004/signalementUtilisateurEnCours/test`).then((res)=>{
-        if(res.ok)
-        {
-          return res.json();
-        }
-      throw res;
-      })
-      .then((data)=>{
-          setSigs(data.lise_Signalement);
-          console.log(sigs);
-          setCount(false);
-    });
-  }
-});
- console.log(sigs);
- const list=sigs.map((ni:{ type:any,reg: any,commentaire:any,id:any,dateS:any,x:any,y:any,nom:any,mail:any})=>
-   <IonCard className="acCard">
-   <IonCardHeader>
-     <img  className='s' src="assets/icon/s.png"></img>
-   </IonCardHeader>
-     <IonCardContent className='s1'>
-       <h4 className='s2'>{ni.reg}</h4>
-      <p>12/12/2021</p>
-       <IonRouterLink  href="#">plus de details</IonRouterLink>
- 
-     </IonCardContent>
-   </IonCard>
-   );*/
+  const[utili,setUtili]=useState(Object);
+  const history=useHistory();
+  useEffect(()=>
+    {
+      if(count==true)
+      {
+       // ph.pop();
+        fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+          if(res.ok)
+          {
+            return res.json();
+          }
+        })
+        .then((data)=>{
+          console.log("token="+localStorage.getItem("token"));
+            if(data.token==false)
+            {
+                history.push("/login");
+            }
+            else if(data.token==true)
+            {
+                setUtili(data.ut);
+                fetch(`http://localhost:2004/signalementUtilisateurEnCours/`+utili.nom).then((res)=>{
+                  if(res.ok)
+                  {
+                    return res.json();
+                  }
+                throw res;
+                })
+                .then((data)=>{
+                    setListeC(data.lise_Signalement);
+                    setCount(false);
+              })
+              .catch(err=> {
+                console.log(err.message);
+              });
+
+              fetch(`http://localhost:2004/signalementUtilsateurNonValide/`+utili.nom).then((res)=>{
+                  if(res.ok)
+                  {
+                    return res.json();
+                  }
+                throw res;
+                })
+                .then((data)=>{
+                    setListeNV(data.liste_Signalement);
+                    setCount(false);
+              })
+              .catch(err=> {
+                console.log(err.message);
+              });
+
+              fetch(`http://localhost:2004/signalementUtilsateurTermine/`+utili.nom).then((res)=>{
+                  if(res.ok)
+                  {
+                    return res.json();
+                  }
+                throw res;
+                })
+                .then((data)=>{
+                    setListeT(data.liste_Signalement);
+                    setCount(false);
+              })
+              .catch(err=> {
+                console.log(err.message);
+              });
+
+            }
+        });
+    
+    }
+  });
+  
+const listeCC=listeC.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
+<IonCard className="acCard">
+<IonCardHeader>
+  <img  className='s' src="assets/icon/s.png"></img>
+</IonCardHeader>
+  <IonCardContent className='s1'>
+    <h4 className='s2'>{lc.type}</h4>
+   <p>{lc.dateS}</p>
+   <p><strong>Statut : </strong>En cours</p>
+
+  </IonCardContent>
+</IonCard>
+
+);
+
+const listeNNV=listeNV.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
+<IonCard className="acCard">
+<IonCardHeader>
+  <img  className='s' src="assets/icon/s.png"></img>
+</IonCardHeader>
+  <IonCardContent className='s1'>
+    <h4 className='s2'>{lc.type}</h4>
+   <p>{lc.dateS}</p>
+   <p><strong>Statut : </strong>Non assigné</p>
+
+  </IonCardContent>
+</IonCard>
+);
+
+const listeTT=listeT.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
+<IonCard className="acCard">
+<IonCardHeader>
+  <img  className='s' src="assets/icon/s.png"></img>
+</IonCardHeader>
+  <IonCardContent className='s1'>
+    <h4 className='s2'>{lc.type}</h4>
+   <p>{lc.dateS}</p>
+   <p><strong>Statut : </strong>Terminé</p>
+
+  </IonCardContent>
+</IonCard>
+);
+
   return (
     <IonPage>
       
@@ -72,7 +146,9 @@ export const Acceuil: React.FC = () => {
       <IonContent>
         
       
-            {lis}
+           {listeCC}
+           {listeNNV}
+           {listeTT}
         
         <IonFab vertical="top" horizontal="start" slot="fixed">
          <IonRouterLink href="insertion"><IonFabButton>
