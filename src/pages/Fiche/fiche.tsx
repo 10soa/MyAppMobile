@@ -3,7 +3,7 @@ import { IonFooter,IonImg,IonVirtualScroll, IonFabButton, IonFabList } from '@io
 import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 import './fiche.css';
 import { pin,triangle, wifi, wine, warning, walk } from 'ionicons/icons';
-import React ,{useState,useEffect} from 'react';
+import React ,{useState,useEffect, Component} from 'react';
 import inscription from '../Inscription/inscription';
 import {useHistory} from 'react-router-dom';
 export const Fiche: React.FC = () => {
@@ -65,7 +65,7 @@ export const Fiche: React.FC = () => {
               .catch(err=> {
                 console.log(err.message);
               });
-              fetch(`http://localhost:2004/signalement/details/19`).then((res)=>{
+              fetch(`http://localhost:2004/signalement/details/22`).then((res)=>{
                 if(res.ok)
                 {
                   return res.json();
@@ -87,16 +87,16 @@ export const Fiche: React.FC = () => {
   });
 
   photos.map((photo)=>
-    ph.push("data:image/jpeg;base64,"+photo)
+    ph.push(photo)
     
-  );
-  console.log(ph);
+  )
+  console.log(photos);
   const photo=ph.map((p)=>
 
-  <IonSlide>
-  <img  className='ssp' src={p}></img>
- 
-  </IonSlide>
+    <IonSlide>
+    <IonImg  className='ssp' src={p.substring(1,p.length-1)}/>
+  
+    </IonSlide>
   );
   return (
     <IonPage>
@@ -112,16 +112,13 @@ export const Fiche: React.FC = () => {
             
                 <IonCardContent className='s12'>
                     <IonSlides>
-                  
+                  {photo
+                  }
                      
-                        <IonSlide>
-                          <img  className='s' src="assets/icon/s.png"></img>
-                          </IonSlide>
-                          <IonSlide>
-                          <img  className='s' src="assets/icon/s.png"></img>
-                          </IonSlide>
-                          {photo}
+                      
+                         
                     </IonSlides>
+                   
                 </IonCardContent>
         </IonCard>
 
@@ -130,7 +127,7 @@ export const Fiche: React.FC = () => {
                
             </IonCardHeader>
                 <IonCardContent className='s11'  >
-                
+              
                <h3  ><IonLabel className="h33">Type de Signalement: </IonLabel> </h3>
                <p><IonLabel className="h32">{sigs.nom}</IonLabel></p>
                 <br></br>
@@ -145,8 +142,7 @@ export const Fiche: React.FC = () => {
                 <br></br>
                 <h3><IonLabel className="h33">Statut</IonLabel></h3>
                 <p><IonLabel className="h32">{statut} </IonLabel></p>
-               
-                <br></br>
+          
                 </IonCardContent>
         </IonCard>
 
