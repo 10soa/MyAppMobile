@@ -25,6 +25,7 @@ export function UsePhotoGallery() {
           });
           // Web platform only: Load the photo as base64 data
           photo.webviewPath = `data:image/jpeg;base64,${file.data}`;
+          console.log(file);
         }
       }
       setPhotos(photosInStorage);

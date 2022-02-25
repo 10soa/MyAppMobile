@@ -7,7 +7,7 @@ import { pin,triangle, wifi, wine, warning, walk } from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 import { camera, trash, close,logOutSharp,homeSharp } from 'ionicons/icons';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 import React from 'react';
 import { isPlatform } from '@ionic/react';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
@@ -15,35 +15,162 @@ import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Storage } from '@capacitor/storage';
 import { Capacitor } from '@capacitor/core';
 import { UsePhotoGallery, UserPhoto } from '../../hooks/usePhotoGallery';
-
-
+import {useHistory} from 'react-router-dom';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import axios from 'axios';
 const Insertion: React.FC = () => {
   const { deletePhoto, photos, takePhoto } = UsePhotoGallery();
   const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
   const [gender, setGender] = useState<string>();
+  const[types,setTypes]=useState([]);
+  const[count,setCount]=useState(true);
+  const history=useHistory();
+  const[typeSi,setTypeSi]=useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [position, setPosition] = useState<Geoposition>();
+  const[comment,setComment]=useState("");
+  const[util,setUtil]=useState(Object);
+  const[id,setId]=useState("22");
+ const img=new Array;
+  const getLocation = async () => {
+      setLoading(true);
 
+      try {
+          const position = await Geolocation.getCurrentPosition();
+          setPosition(position);
+          setLoading(false);
+      } catch (e) {
+          setLoading(false);
+      }
+  }
+  useEffect(()=>
+  {
+  
+    if(count==true)
+    {
+      getLocation();
+      fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+        if(res.ok)
+        {
+          return res.json();
+        }
+      })
+      .then((data)=>{
+        console.log("token="+localStorage.getItem("token"));
+          if(data.token==false)
+          {
+              history.push("/login");
+          }
+          else if(data.token==true)
+          {
+              setUtil(data.ut);
+              fetch(`http://localhost:2004/typeSignalements`).then((res)=>{
+                if(res.ok)
+                {
+                  return res.json();
+                }
+              throw res;
+              })
+              .then((data)=>{
+                setTypes(data);
+                console.log(types);
+                setCount(false);
+              });
+          }
+      });
+    }
+  });
+  const select=types.map((type:{id:any,nom:any})=>
+    <IonSelectOption value={type.id}>{type.nom}</IonSelectOption>
+  );
+ // position?.coords.latitude: x
+ // position?.coords.longitude: y
+
+ const insert=()=> {
+  const url="http://localhost:2004/signalement/"+typeSi+"/"+comment+"/"+position?.coords.latitude+"/"+position?.coords.longitude+"/"+util.id;
+  console.log(url);
+
+  
+    let data=JSON.stringify({img});
+    console.log(img);
+    const options={
+      method:'POST'
+    };
+   fetch(url,options).then((res)=>{
+      if(res.ok)
+      {
+        return res.json();
+      }
+   })
+   .then((data)=>{
+      setId(data);
+      console.log(data+" hihi");
+      for(let i=0;i<photos.length;i++)
+      {
+          const option={
+          method:'POST',
+          body:JSON.stringify(photos[i].webviewPath)
+          };
+          fetch("http://localhost:2004/detailSignalements/"+data,option).then((res)=>{
+            if(res.ok)
+            {
+              return res.json();
+            }
+        })
+      }
+   });
+  
+};
 return (
   //
   <IonPage>
-  <IonHeader>pwa-Elemets/
+  <IonHeader>
     <IonToolbar>
-      <IonTitle>Choisissez des photos</IonTitle>
+      <IonTitle>Insertion Signalement</IonTitle>
     </IonToolbar>
   </IonHeader>
   <IonContent>
   <IonHeader collapse="condense">
       <IonToolbar>
-        <IonTitle size="large">Photo Gallery</IonTitle>
+        <IonTitle size="large">Insertion Signalement</IonTitle>
       </IonToolbar>
     </IonHeader>
-    <IonCard className="acccCard">
+   
+<IonCard>
+         
+
+         <form action="/acceuil" method='Get'>
+         <IonCardContent>
+         <IonItem>
+         <IonLabel>Type Signalement</IonLabel>
+            <IonSelect value={typeSi} placeholder="Select One" onIonChange={e => setTypeSi(e.detail.value)}>
+            {select}
+            </IonSelect>
+         </IonItem>
+         {}
+         <br></br>
+         <IonItem>
+           <IonInput className="input" type="text" value={comment}  placeholder="Commentaire" onIonChange={e => setComment(e.detail.value!)}> </IonInput>
+         </IonItem>
+         <br></br>
+         
+         </IonCardContent>
+
+        
+         <br></br>
+         <p></p>
+         </form>
+
+        
+        
+     
     <IonGrid>
       <IonRow>
-        {photos.map((photo, index) => (
+        {photos.map((photo, index) => ( 
           <IonCol size="6" key={index}>
             <IonSlides>
                 <IonSlide>
-                <IonImg onClick={() => "setPhotoToDelete(photo)"} src={photo.webviewPath} />
+                <IonImg onClick={() => setPhotoToDelete(photo)} src={photo.webviewPath} />
                 </IonSlide>
             </IonSlides>
             
@@ -73,40 +200,15 @@ return (
       }]}
       onDidDismiss={() => setPhotoToDelete(undefined)}
     />
+     <br></br>
+     <p className='ob'>Photo obligatoire ( max: 5)</p>
+         <IonButton className="boton" type="submit" size="large" onClick={insert}>Inserez</IonButton>
 </IonCard>
 
-<IonCard>
-         
-
-         <form action="/acceuil" method='Get'>
-         <IonCardContent>
-         <IonItem>
-         <IonLabel>Type Signalement</IonLabel>
-            <IonSelect value={gender} placeholder="Select One" onIonChange={e => setGender(e.detail.value)}>
-              <IonSelectOption value="female">Destruction routiere</IonSelectOption>
-              <IonSelectOption value="male">Ecroulement terrestre</IonSelectOption>
-            </IonSelect>
-         </IonItem>
-         <br></br>
-         <IonItem>
-           <IonInput className="input" type="text" name="commentaire" placeholder="Commentaire"> </IonInput>
-         </IonItem>
-         <br></br>
-         
-         </IonCardContent>
-
-         <br></br>
-         <IonButton className="boton" type="submit" size="large" >Inserez</IonButton>
-         <br></br>
-         <p></p>
-         </form>
-
-        
-        
-       </IonCard>
 
 <IonFab vertical="bottom" horizontal="center" slot="fixed">
       <IonFabButton onClick={() => takePhoto()}>
+        
         <IonIcon icon={camera}></IonIcon>
       </IonFabButton>
 </IonFab>
@@ -114,7 +216,7 @@ return (
   </IonContent>
   <IonTabBar slot="top">
       <IonTabButton>
-            <IonIcon icon={logOutSharp} />
+            <IonIcon icon={logOutSharp} /> 
           </IonTabButton>
           <IonTabButton>
             <IonIcon icon={homeSharp} /> Accueil
