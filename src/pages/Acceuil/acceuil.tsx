@@ -9,7 +9,7 @@ import React, {useEffect, useState} from 'react';
 import {useHistory,useParams} from 'react-router-dom';
 
 
-  
+  // 192.168.88.27
    
 
 export const Acceuil: React.FC = () => {
@@ -155,7 +155,7 @@ const listeTT=listeT.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:a
            {listeTT}
         
         <IonFab vertical="top" horizontal="start" slot="fixed">
-         <IonRouterLink href="insertion"><IonFabButton>
+         <IonRouterLink href="notif"><IonFabButton>
             <IonIcon icon={add}/>
           </IonFabButton> </IonRouterLink> 
       </IonFab>
