@@ -6,7 +6,7 @@ import { arrowBackSharp,homeSharp,pin,triangle, wifi, wine, warning, walk,notifi
 import inscription from '../Inscription/inscription';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory,useParams} from 'react-router-dom';
 
 
   
@@ -16,6 +16,7 @@ export const Acceuil: React.FC = () => {
   const[listeC,setListeC]=useState([]);
   const[listeNV,setListeNV]=useState([]);
   const[listeT,setListeT]=useState([]);
+  const { id }=useParams<{id:string}>();
   const[count,setCount]=useState(true);
   const[utili,setUtili]=useState(Object);
   const history=useHistory();
@@ -89,14 +90,17 @@ export const Acceuil: React.FC = () => {
     
     }
   });
-  
+  function chemin(id: any)
+  {
+      return "/Fiche/"+id;
+  }
 const listeCC=listeC.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
-<IonCard className="acCard">
+<IonCard className="acCard" routerLink={chemin(lc.id)}>
 <IonCardHeader>
   <img  className='s' src="assets/icon/s.png"></img>
 </IonCardHeader>
   <IonCardContent className='s1'>
-    <h4 className='s2'>{lc.type}</h4>
+    <h4 className='s2'><IonLabel className="typeS">{lc.type}</IonLabel></h4>
    <p>{lc.dateS}</p>
    <p><strong>Statut : </strong>En cours</p>
 
@@ -106,12 +110,12 @@ const listeCC=listeC.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:a
 );
 
 const listeNNV=listeNV.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
-<IonCard className="acCard">
+<IonCard className="acCard" routerLink={chemin(lc.id)} >
 <IonCardHeader>
   <img  className='s' src="assets/icon/s.png"></img>
 </IonCardHeader>
   <IonCardContent className='s1'>
-    <h4 className='s2'>{lc.type}</h4>
+    <h4 className='s2'><IonLabel className="typeS">{lc.type}</IonLabel></h4>
    <p>{lc.dateS}</p>
    <p><strong>Statut : </strong>Non assigné</p>
 
@@ -120,12 +124,12 @@ const listeNNV=listeNV.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom
 );
 
 const listeTT=listeT.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
-<IonCard className="acCard">
+<IonCard className="acCard" routerLink={chemin(lc.id)}>
 <IonCardHeader>
   <img  className='s' src="assets/icon/s.png"></img>
 </IonCardHeader>
   <IonCardContent className='s1'>
-    <h4 className='s2'>{lc.type}</h4>
+    <h4 className='s2'><IonLabel className="typeS">{lc.type}</IonLabel></h4>
    <p>{lc.dateS}</p>
    <p><strong>Statut : </strong>Terminé</p>
 
@@ -138,7 +142,7 @@ const listeTT=listeT.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:a
       
       <IonHeader>
       <IonToolbar>
-          <IonTitle><h1 className='title'>Accueil <IonIcon className='not' icon={notificationsSharp} /></h1 >
+          <IonTitle><h1 className='title'>Vos signalements <IonIcon className='not' icon={person} /></h1 >
 
            </IonTitle>
       </IonToolbar>
@@ -159,7 +163,7 @@ const listeTT=listeT.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:a
      
       <IonTabBar slot="top">
       <IonTabButton>
-            <IonIcon icon={logOutSharp} />
+            <IonIcon icon={notificationsSharp} /> Notifications
           </IonTabButton>
           <IonTabButton>
             <IonIcon icon={homeSharp} /> Accueil

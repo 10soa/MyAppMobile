@@ -37,9 +37,9 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
-
+import useParams from 'react-router-dom';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 setupIonicReact();
-
 const App: React.FC = () => {
   defineCustomElements(window)
   return(
@@ -58,12 +58,11 @@ const App: React.FC = () => {
           <Route path="/notif">
             <Tab7 />
           </Route>
-          <Route path="/fiche">
-            <Tab8 />
-          </Route>
+          <Route path="/fiche/:id" component={Tab8} /> 
           <Route path="/insertion">
             <Tab9 />
           </Route>
+          
           <Route path="/inscription">
             <Tab5 />
           </Route>

@@ -1,6 +1,6 @@
 .accCard{
     width :80%;
-    height: 50%;
+    height: 70%;
     border-radius: 12px;
     box-shadow: 0px 4px 12px 2px rgba(0,0,0,0.16);
     margin-left: 10%;
@@ -30,15 +30,16 @@
     display: block;
 }
 .h32{
-    font-size: 15px;
+    font-size: 18px;
     
 }
 
 .h33{
     font-weight: bold;
-    font-size: 15px;
+    font-size: 22px;
     text-size-adjust: 100%;
     color:blue;
+    text-decoration-line: underline;
 }
 .acCard1{
     height:27%;

@@ -2,6 +2,11 @@ ion-fab{
     margin-bottom: -5%;
     margin-right: 50%;
 }
+.typeS{
+    font-weight: bold;
+    color:rgb(67, 224, 67);
+    font-size: medium;
+}
 
 .acCard{
     width :90%;
@@ -43,7 +48,7 @@ ion-fab{
 }
 .s1{
     text-align: center;
-    
+    margin-top: -5px;
 }
 .sig{
     margin-top: 100px;

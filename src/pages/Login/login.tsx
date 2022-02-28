@@ -67,7 +67,7 @@ const inscri=()=> {
           <p></p>
 
           <IonButton className="boton" onClick={inscri} color="success" size="large">Inscription</IonButton>
-         <p>{mail}</p>
+        
         </IonCard>
         
            

@@ -6,7 +6,14 @@ import { pin,triangle, wifi, wine, warning, walk } from 'ionicons/icons';
 import React ,{useState,useEffect, Component} from 'react';
 import inscription from '../Inscription/inscription';
 import {useHistory} from 'react-router-dom';
-export const Fiche: React.FC = () => {
+import { useParams } from 'react-router-dom';
+import match from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
+interface UserDetailPageProps extends RouteComponentProps<{
+  id: string;
+}>{}
+export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
+  const id=match.params.id;
   const[count,setCount]=useState(true);
   const[sigs,setSigs]=useState(Object);
   const[statut,setStatut]=useState("");
@@ -15,6 +22,7 @@ export const Fiche: React.FC = () => {
   const history=useHistory();
   const [photos,setPhotos]=useState([]);
   const ph=new Array();
+ 
   useEffect(()=>
     {
       if(count==true)
@@ -34,7 +42,8 @@ export const Fiche: React.FC = () => {
             }
             else if(data.token==true)
             {
-                fetch(`http://localhost:2004/signalements/19/1`).then((res)=>{
+              const url1="http://localhost:2004/signalements/"+id+"/1";
+                fetch(url1).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
@@ -65,7 +74,8 @@ export const Fiche: React.FC = () => {
               .catch(err=> {
                 console.log(err.message);
               });
-              fetch(`http://localhost:2004/signalement/details/22`).then((res)=>{
+              const url2="http://localhost:2004/signalement/details/"+id
+              fetch(url2).then((res)=>{
                 if(res.ok)
                 {
                   return res.json();
