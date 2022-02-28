@@ -6,7 +6,7 @@ import inscription from '../Inscription/inscription';
 import axios from 'axios';
 import React,{ Component ,useEffect,useState} from 'react';
 
-const url="http://localhost:2004/signalementUtilisateurEnCours/test/1";
+const url="http://192.168.88.27:2004/signalementUtilisateurEnCours/test/1";
 class Test extends Component {
    
     render() {

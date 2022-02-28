@@ -4,22 +4,66 @@ import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arro
 import './Notif.css';
 import { closeCircleSharp,pin,triangle,logOutSharp,homeSharp,arrowBackSharp, wifi, wine, warning, walk } from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
-const num=[1,2,3,4,5];
-const lis=num.map((n)=>
-    <IonItemSliding>
+export const Notif: React.FC = () => {
+  const[listeC,setListeC]=useState([]);
+  const[count,setCount]=useState(true);
+  const[utili,setUtili]=useState(Object);
+  const history=useHistory();
+  useEffect(()=>
+    {
+      if(count==true)
+      {
+       // ph.pop();
+        fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+          if(res.ok)
+          {
+            return res.json();
+          }
+        })
+        .then((data)=>{
+          console.log("token="+localStorage.getItem("token"));
+            if(data.token==false)
+            {
+                history.push("/login");
+            }
+            else if(data.token==true)
+            {
+                setUtili(data.ut);
+                fetch(`http://localhost:2004/notifications/`+utili.id).then((res)=>{
+                  if(res.ok)
+                  {
+                    return res.json();
+                  }
+                throw res;
+                })
+                .then((data)=>{
+                    setListeC(data.liste_notification);
+                    setCount(false);
+              })
+              .catch(err=> {
+                console.log(err.message);
+              });
+            }
+        });
+    
+    }
+  });
+
+  const listeCC=listeC.map((lc:{dateDebut:any;dateFin:any;idNotification:any;idSignalement:any;statut:any})=>
+  <IonItemSliding>
     <IonItem className='notif'>
     <img  className='sn' src="assets/icon/s.png"></img>
     <IonLabel className='sn1'>Signalement  <IonIcon className='x' color="success" icon={closeCircleSharp}/>
-    <p className='wrap'>-------------</p>
-    <p className='date'> Terminé le : 2021-12-12</p>  </IonLabel>
+    <p className='wrap'>-------------</p> 
+    </IonLabel>
+    <p className='date'> Terminé le : {lc.dateFin}</p>  
     </IonItem>
-    
-     
-    </IonItemSliding>
+  </IonItemSliding>
   );
 
-export const Notif: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -30,10 +74,10 @@ export const Notif: React.FC = () => {
       </IonHeader>
       <IonContent>
       <IonList typeof='full'>
-      {lis}
+     
       </IonList>
 
-      
+      {listeCC}
         
         
       </IonContent>
