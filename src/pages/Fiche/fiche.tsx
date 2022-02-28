@@ -1,19 +1,12 @@
 import { IonContent,IonRippleEffect,IonInput,IonTabs,IonTabButton,IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonItem, IonIcon, IonLabel, IonButton, IonTabBar, IonRouterLink, IonSlides, IonSlide  } from '@ionic/react';
 import { IonFooter,IonImg,IonVirtualScroll, IonFabButton, IonFabList } from '@ionic/react';
-import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
+import { add, settings, share, person, arrowForwardCircle, arrowBackCircle,homeSharp,notificationsSharp,logOutSharp, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 import './fiche.css';
 import { pin,triangle, wifi, wine, warning, walk } from 'ionicons/icons';
 import React ,{useState,useEffect, Component} from 'react';
 import inscription from '../Inscription/inscription';
 import {useHistory} from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import match from 'react-router-dom';
-import {RouteComponentProps} from 'react-router-dom';
-interface UserDetailPageProps extends RouteComponentProps<{
-  id: string;
-}>{}
-export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
-  const id=match.params.id;
+export const Fiche: React.FC = () => {
   const[count,setCount]=useState(true);
   const[sigs,setSigs]=useState(Object);
   const[statut,setStatut]=useState("");
@@ -22,7 +15,9 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
   const history=useHistory();
   const [photos,setPhotos]=useState([]);
   const ph=new Array();
- 
+  const b=()=> {
+    history.push("/Notif");
+  };
   useEffect(()=>
     {
       if(count==true)
@@ -42,8 +37,7 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
             }
             else if(data.token==true)
             {
-              const url1="http://localhost:2004/signalements/"+id+"/1";
-                fetch(url1).then((res)=>{
+                fetch(`http://localhost:2004/signalements/19/1`).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
@@ -74,8 +68,7 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
               .catch(err=> {
                 console.log(err.message);
               });
-              const url2="http://localhost:2004/signalement/details/"+id
-              fetch(url2).then((res)=>{
+              fetch(`http://localhost:2004/signalement/details/22`).then((res)=>{
                 if(res.ok)
                 {
                   return res.json();
@@ -159,14 +152,14 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
 
       </IonContent>
       <IonTabBar slot="top">
+      <IonTabButton >
+            <IonIcon icon={notificationsSharp} /> <IonRouterLink href="/Notif">Notifications </IonRouterLink>
+          </IonTabButton> 
           <IonTabButton>
-            <IonIcon icon={wifi} />
+            <IonIcon icon={homeSharp} /> Accueil
           </IonTabButton>
           <IonTabButton>
-            <IonIcon icon={add} />
-          </IonTabButton>
-          <IonTabButton>
-            <IonIcon icon={person} />
+            <IonIcon icon={logOutSharp} /> Se deconnecter
           </IonTabButton>
           
       </IonTabBar>

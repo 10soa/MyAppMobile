@@ -2,7 +2,7 @@ import { IonItemOptions,IonItemOption,IonItemSliding,IonContent,IonRippleEffect,
 import { IonFooter,IonList,IonFab, IonFabButton, IonFabList } from '@ionic/react';
 import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 import './Notif.css';
-import { closeCircleSharp,pin,triangle,logOutSharp,homeSharp,arrowBackSharp, wifi, wine, warning, walk } from 'ionicons/icons';
+import { closeCircleSharp,pin,triangle,logOutSharp,homeSharp,arrowBackSharp,notificationsSharp, wifi, wine, warning, walk } from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
@@ -17,7 +17,7 @@ export const Notif: React.FC = () => {
       if(count==true)
       {
        // ph.pop();
-        fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+        fetch(`https://test-rojo.herokuapp.com/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
           if(res.ok)
           {
             return res.json();
@@ -32,7 +32,7 @@ export const Notif: React.FC = () => {
             else if(data.token==true)
             {
                 setUtili(data.ut);
-                fetch(`http://localhost:2004/notifications/`+utili.id).then((res)=>{
+                fetch(`https://test-rojo.herokuapp.com/notifications/`+utili.id).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
@@ -83,9 +83,9 @@ export const Notif: React.FC = () => {
       </IonContent>
 
       <IonTabBar slot="top">
-      <IonTabButton>
-            <IonIcon icon={logOutSharp} />
-          </IonTabButton>
+      <IonTabButton >
+            <IonIcon icon={notificationsSharp} /> <IonRouterLink href="/Notif">Notifications </IonRouterLink>
+          </IonTabButton> 
           <IonTabButton>
             <IonIcon icon={homeSharp} /> Accueil
           </IonTabButton>

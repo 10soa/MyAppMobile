@@ -6,7 +6,7 @@ import './insertion.css';
 import { pin,triangle, wifi, wine, warning, walk } from 'ionicons/icons';
 import inscription from '../Inscription/inscription';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
-import { camera, trash, close,logOutSharp,homeSharp } from 'ionicons/icons';
+import { camera, trash, close,logOutSharp,homeSharp,notificationsSharp } from 'ionicons/icons';
 import { useState, useEffect} from 'react';
 import React from 'react';
 import { isPlatform } from '@ionic/react';
@@ -85,7 +85,9 @@ const Insertion: React.FC = () => {
   );
  // position?.coords.latitude: x
  // position?.coords.longitude: y
-
+ const b=()=> {
+  history.push("/Notif");
+};
  const insert=()=> {
   const url="http://localhost:2004/signalement/"+typeSi+"/"+comment+"/"+position?.coords.latitude+"/"+position?.coords.longitude+"/"+util.id;
   console.log(url);
@@ -121,6 +123,7 @@ const Insertion: React.FC = () => {
    });
   
 };
+
 return (
   //
   <IonPage>
@@ -215,16 +218,16 @@ return (
 
   </IonContent>
   <IonTabBar slot="top">
-      <IonTabButton>
-            <IonIcon icon={logOutSharp} /> 
-          </IonTabButton>
+  <IonTabButton >
+            <IonIcon icon={notificationsSharp} /> <IonRouterLink href="/Notif">Notifications </IonRouterLink>
+          </IonTabButton> 
           <IonTabButton>
             <IonIcon icon={homeSharp} /> Accueil
           </IonTabButton>
           <IonTabButton>
             <IonIcon icon={logOutSharp} /> Se deconnecter
           </IonTabButton>
-      </IonTabBar>
+         </IonTabBar>
 </IonPage>
 );
 };

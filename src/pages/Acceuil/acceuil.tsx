@@ -25,7 +25,7 @@ export const Acceuil: React.FC = () => {
       if(count==true)
       {
        // ph.pop();
-        fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+        fetch(`https://test-rojo.herokuapp.com/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
           if(res.ok)
           {
             return res.json();
@@ -40,7 +40,7 @@ export const Acceuil: React.FC = () => {
             else if(data.token==true)
             {
                 setUtili(data.ut);
-                fetch(`http://localhost:2004/signalementUtilisateurEnCours/`+utili.nom).then((res)=>{
+                fetch(`https://test-rojo.herokuapp.com/signalementUtilisateurEnCours/`+utili.nom).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
@@ -55,7 +55,7 @@ export const Acceuil: React.FC = () => {
                 console.log(err.message);
               });
 
-              fetch(`http://localhost:2004/signalementUtilsateurNonValide/`+utili.nom).then((res)=>{
+              fetch(`https://test-rojo.herokuapp.com/signalementUtilsateurNonValide/`+utili.nom).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
@@ -70,7 +70,7 @@ export const Acceuil: React.FC = () => {
                 console.log(err.message);
               });
 
-              fetch(`http://localhost:2004/signalementUtilsateurTermine/`+utili.nom).then((res)=>{
+              fetch(`https://test-rojo.herokuapp.com/signalementUtilsateurTermine/`+utili.nom).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
@@ -94,6 +94,9 @@ export const Acceuil: React.FC = () => {
   {
       return "/Fiche/"+id;
   }
+  const b=()=> {
+    history.push("/Notif");
+  };
 const listeCC=listeC.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:any;mail:any;reg:any;type:any})=>
 <IonCard className="acCard" routerLink={chemin(lc.id)}>
 <IonCardHeader>
@@ -155,16 +158,16 @@ const listeTT=listeT.map((lc:{id:any;commentaire:any;dateS:any;x:any;y:any;nom:a
            {listeTT}
         
         <IonFab vertical="top" horizontal="start" slot="fixed">
-         <IonRouterLink href="notif"><IonFabButton>
+         <IonRouterLink href="insertion"><IonFabButton>
             <IonIcon icon={add}/>
           </IonFabButton> </IonRouterLink> 
       </IonFab>
       </IonContent>
      
       <IonTabBar slot="top">
-      <IonTabButton>
-            <IonIcon icon={notificationsSharp} /> Notifications
-          </IonTabButton>
+      <IonTabButton >
+            <IonIcon icon={notificationsSharp} /> <IonRouterLink href="/Notif">Notifications </IonRouterLink>
+          </IonTabButton> 
           <IonTabButton>
             <IonIcon icon={homeSharp} /> Accueil
           </IonTabButton>

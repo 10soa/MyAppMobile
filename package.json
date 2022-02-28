@@ -1,4 +1,5 @@
 {
+  "proxy":"https://test-rojo.herokuapp.com",
   "name": "MyAppMobile2",
   "version": "0.0.1",
   "private": true,
