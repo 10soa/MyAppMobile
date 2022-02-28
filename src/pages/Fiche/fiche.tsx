@@ -28,7 +28,7 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
       if(count==true)
       {
        // ph.pop();
-        fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+        fetch(`https://test-rojo.herokuapp.com/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
           if(res.ok)
           {
             return res.json();
@@ -42,7 +42,7 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
             }
             else if(data.token==true)
             {
-              const url1="http://localhost:2004/signalements/"+id+"/1";
+              const url1="https://test-rojo.herokuapp.com/signalements/"+id+"/1";
                 fetch(url1).then((res)=>{
                   if(res.ok)
                   {
@@ -74,7 +74,7 @@ export const Fiche: React.FC<UserDetailPageProps> = ({match}) => {
               .catch(err=> {
                 console.log(err.message);
               });
-              const url2="http://localhost:2004/signalement/details/"+id
+              const url2="https://test-rojo.herokuapp.com/signalement/details/"+id
               fetch(url2).then((res)=>{
                 if(res.ok)
                 {

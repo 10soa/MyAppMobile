@@ -49,7 +49,7 @@ const Insertion: React.FC = () => {
     if(count==true)
     {
       getLocation();
-      fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+      fetch(`https://test-rojo.herokuapp.com/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
         if(res.ok)
         {
           return res.json();
@@ -64,7 +64,7 @@ const Insertion: React.FC = () => {
           else if(data.token==true)
           {
               setUtil(data.ut);
-              fetch(`http://localhost:2004/typeSignalements`).then((res)=>{
+              fetch(`https://test-rojo.herokuapp.com/typeSignalements`).then((res)=>{
                 if(res.ok)
                 {
                   return res.json();
@@ -87,7 +87,7 @@ const Insertion: React.FC = () => {
  // position?.coords.longitude: y
 
  const insert=()=> {
-  const url="http://localhost:2004/signalement/"+typeSi+"/"+comment+"/"+position?.coords.latitude+"/"+position?.coords.longitude+"/"+util.id;
+  const url="https://test-rojo.herokuapp.com/signalement/"+typeSi+"/"+comment+"/"+position?.coords.latitude+"/"+position?.coords.longitude+"/"+util.id;
   console.log(url);
 
   
@@ -111,7 +111,7 @@ const Insertion: React.FC = () => {
           method:'POST',
           body:JSON.stringify(photos[i].webviewPath)
           };
-          fetch("http://localhost:2004/detailSignalements/"+data,option).then((res)=>{
+          fetch("https://test-rojo.herokuapp.com/detailSignalements/"+data,option).then((res)=>{
             if(res.ok)
             {
               return res.json();

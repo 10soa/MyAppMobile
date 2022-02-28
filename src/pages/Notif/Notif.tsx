@@ -17,7 +17,7 @@ export const Notif: React.FC = () => {
       if(count==true)
       {
        // ph.pop();
-        fetch(`http://localhost:2004/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
+        fetch(`https://test-rojo.herokuapp.com/tokenUtilisateur/`+localStorage.getItem("token")).then((res)=>{
           if(res.ok)
           {
             return res.json();
@@ -32,7 +32,7 @@ export const Notif: React.FC = () => {
             else if(data.token==true)
             {
                 setUtili(data.ut);
-                fetch(`http://localhost:2004/notifications/`+utili.id).then((res)=>{
+                fetch(`https://test-rojo.herokuapp.com/notifications/`+utili.id).then((res)=>{
                   if(res.ok)
                   {
                     return res.json();
